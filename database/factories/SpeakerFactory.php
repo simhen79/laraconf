@@ -1,0 +1,23 @@
+<?php
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Testing\Fakes\Fake;
+
+class SpeakerFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     */
+    public function definition(): array
+    {
+        return [
+            'name' => fake()->name(),
+            'email' => fake()->safeEmail(),
+            'bio' => fake()->text(),
+            'qualifications' => [],
+            'twitter_handle' => fake()->word(),
+        ];
+    }
+}
