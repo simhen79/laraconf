@@ -15,11 +15,13 @@ use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Utilities\Get;
+use Filament\Support\Enums\Operation;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\App;
 
 class Conference extends Model
 {
@@ -137,7 +139,6 @@ class Conference extends Model
                                         CheckboxList::make('speakers')
                                             ->bulkToggleable()
                                             ->searchable()
-                                            ->required()
                                             ->columns(3)
                                             ->columnSpanFull()
                                             ->label('Speakers')
@@ -151,10 +152,15 @@ class Conference extends Model
                     ->label('Fill with Test Data')
                     ->icon('heroicon-o-beaker')
                     ->color('gray')
-                    ->action(function () {
-                        ray('Hello');
+                    ->action(function ($livewire) {
+                        $data = Conference::factory()->make()->toArray();
+                        $livewire->form->fill($data);
                     })
-            ]),
+            ])
+                ->hiddenOn(Operation::Edit)
+                ->visible(function () {
+                    return App::environment('local');
+                })
         ];
     }
 }
