@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Filament\App\Resources\Speakers\Schemas;
+
+use App\Models\Speaker;
+use Filament\Schemas\Schema;
+
+class SpeakerForm
+{
+    public static function configure(Schema $schema): Schema
+    {
+        return $schema
+            ->components(Speaker::getForm());
+    }
+}

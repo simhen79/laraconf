@@ -35,16 +35,14 @@ class Speaker extends Model
     {
         return [
             TextInput::make('name')
-                ->required(),
+                ->rules('required'),
             TextInput::make('email')
                 ->label('Email address')
-                ->email()
-                ->required(),
+                ->rules(['required', 'email']),
             Textarea::make('bio')
-                ->required()
+                ->rules('required')
                 ->columnSpanFull(),
-            TextInput::make('twitter_handle')
-                ->required(),
+            TextInput::make('twitter_handle'),
             CheckboxList::make('qualifications')
                 ->columnSpanFull()
                 ->searchable()

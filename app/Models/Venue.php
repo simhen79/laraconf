@@ -35,17 +35,17 @@ class Venue extends Model
     {
         return [
             TextInput::make('name')
-                ->required(),
+                ->rules(['required', 'string', 'max:255']),
             TextInput::make('city')
-                ->required(),
+                ->rules(['required', 'string', 'max:255']),
             TextInput::make('country')
-                ->required(),
+                ->rules(['required', 'string', 'max:255']),
             TextInput::make('postal_code')
-                ->required(),
+                ->rules(['required', 'string', 'max:255']),
             Select::make('region')
                 ->enum(Region::class)
                 ->options(Region::class)
-                ->required()
+                ->rules(['required'])
                 ->native(false),
         ];
     }

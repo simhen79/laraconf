@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
+use Filament\Actions\CreateAction;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,5 +24,23 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Model::unguard();
+
+        CreateAction::configureUsing(function (CreateAction $createAction) {
+            $createAction
+                ->closeModalByEscaping(false)
+                ->closeModalByClickingAway(false);
+        });
+
+        EditAction::configureUsing(function (EditAction $editAction) {
+            $editAction
+                ->closeModalByClickingAway(false)
+                ->closeModalByEscaping(false);
+        });
+
+        ViewAction::configureUsing(function (ViewAction $viewAction) {
+            $viewAction
+                ->closeModalByClickingAway(false)
+                ->closeModalByEscaping(false);
+        });
     }
 }

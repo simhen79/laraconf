@@ -157,7 +157,7 @@ class Conference extends Model
                         $livewire->form->fill($data);
                     })
             ])
-                ->hiddenOn(Operation::Edit)
+                ->hiddenOn([Operation::Edit, Operation::View])
                 ->visible(function () {
                     return App::environment('local');
                 })
