@@ -32,6 +32,9 @@ class AppPanelProvider extends PanelProvider
             ->id('app')
             ->path('/')
             ->login()
+            ->passwordReset()
+            ->emailChangeVerification()
+            ->profile(isSimple: false)
             ->maxContentWidth(Width::Full)
             ->colors([
                 'primary' => Color::Teal,
