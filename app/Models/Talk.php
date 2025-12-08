@@ -2,6 +2,13 @@
 
 namespace App\Models;
 
+use App\Enums\TalkLength;
+use App\Enums\TalkStatus;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,6 +28,8 @@ class Talk extends Model
         return [
             'id' => 'integer',
             'speaker_id' => 'integer',
+            'status' => TalkStatus::class,
+            'length' => TalkLength::class,
         ];
     }
 
@@ -32,5 +41,47 @@ class Talk extends Model
     public function conferences(): BelongsToMany
     {
         return $this->belongsToMany(Conference::class);
+    }
+
+    public static function getForm($speakerId = null): array
+    {
+        return [
+            TextInput::make('title')
+                ->columnSpanFull()
+                ->required(),
+            RichEditor::make('abstract')
+                ->required()
+                ->columnSpanFull(),
+            Select::make('speaker_id')
+                ->relationship('speaker', 'name')
+                ->hidden(function () use ($speakerId) {
+                    return $speakerId !== null;
+                })
+                ->required(),
+            Select::make('status')
+                ->enum(TalkStatus::class)
+                ->options(TalkStatus::class)
+                ->default(TalkStatus::SUBMITTED),
+            Select::make('length')
+                ->enum(TalkLength::class)
+                ->options(TalkLength::class)
+                ->default(TalkLength::NORMAL),
+            Toggle::make('new_talk')
+                ->default(true),
+        ];
+    }
+
+    public function approve(): void
+    {
+        $this->status = TalkStatus::APPROVED;
+        //email the speaker etc
+        $this->save();
+    }
+
+    public function reject(): void
+    {
+        $this->status = TalkStatus::REJECTED;
+        //email the speaker etc
+        $this->save();
     }
 }

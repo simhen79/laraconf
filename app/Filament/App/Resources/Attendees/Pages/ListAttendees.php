@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Filament\App\Resources\Attendees\Pages;
+
+use App\Filament\App\Resources\Attendees\AttendeeResource;
+use App\Filament\App\Resources\Attendees\Widgets\AttendeeChartWidget;
+use App\Filament\App\Resources\Attendees\Widgets\AttendeesStatsWidget;
+use Filament\Actions\CreateAction;
+use Filament\Pages\Concerns\ExposesTableToWidgets;
+use Filament\Resources\Pages\ListRecords;
+
+class ListAttendees extends ListRecords
+{
+    use ExposesTableToWidgets;
+
+    protected static string $resource = AttendeeResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            CreateAction::make(),
+        ];
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            AttendeesStatsWidget::class,
+            AttendeeChartWidget::class
+        ];
+    }
+}

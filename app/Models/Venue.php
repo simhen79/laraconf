@@ -8,10 +8,13 @@ use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 
-class Venue extends Model
+class Venue extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     /**
      * Get the attributes that should be cast.
@@ -47,6 +50,15 @@ class Venue extends Model
                 ->options(Region::class)
                 ->rules(['required'])
                 ->native(false),
+            /*SpatieMediaLibraryFileUpload::make('images')
+                ->collection('venue-images')
+                ->image()
+                ->multiple()
+                ->columnSpanFull(),*/
+            SpatieMediaLibraryFileUpload::make('files')
+                ->columnSpanFull()
+                ->multiple()
+                ->collection('venue-files')
         ];
     }
 }

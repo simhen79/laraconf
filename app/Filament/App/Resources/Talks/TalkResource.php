@@ -18,9 +18,10 @@ class TalkResource extends Resource
 {
     protected static ?string $model = Talk::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    // protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|null|\UnitEnum $navigationGroup = 'Second Group';
 
-    protected static ?string $recordTitleAttribute = 'Talks';
+    protected static ?string $recordTitleAttribute = 'title';
 
     public static function form(Schema $schema): Schema
     {
@@ -43,8 +44,8 @@ class TalkResource extends Resource
     {
         return [
             'index' => ListTalks::route('/'),
-            'create' => CreateTalk::route('/create'),
-            'edit' => EditTalk::route('/{record}/edit'),
+            //'create' => CreateTalk::route('/create'),
+            // 'edit' => EditTalk::route('/{record}/edit'),
         ];
     }
 }

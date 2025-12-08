@@ -28,13 +28,15 @@ class AppServiceProvider extends ServiceProvider
         CreateAction::configureUsing(function (CreateAction $createAction) {
             $createAction
                 ->closeModalByEscaping(false)
-                ->closeModalByClickingAway(false);
+                ->closeModalByClickingAway(false)
+                ->slideOver();
         });
 
         EditAction::configureUsing(function (EditAction $editAction) {
             $editAction
                 ->closeModalByClickingAway(false)
-                ->closeModalByEscaping(false);
+                ->closeModalByEscaping(false)
+                ->slideOver();
         });
 
         ViewAction::configureUsing(function (ViewAction $viewAction) {

@@ -23,6 +23,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\App;
 
+/**
+ * @property int $id
+ */
+
 class Conference extends Model
 {
     use HasFactory;

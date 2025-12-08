@@ -12,7 +12,8 @@ class ViewSpeaker extends ViewRecord
 
     protected function getHeaderActions(): array
     {
-        return [];
+        return [
+            EditAction::make()->slideOver(),
+        ];
     }
-
 }

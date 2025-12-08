@@ -20,7 +20,7 @@ class UserForm
                 TextInput::make('email')
                     ->label('Email address')
                     ->rules(fn (string $operation) => [
-                        $operation === 'create' ?? 'unique:users,email',
+                        $operation === 'create' ? 'unique:users,email' : null,
                         'email',
                         'required',
                     ]),
@@ -30,7 +30,7 @@ class UserForm
                     ->dehydrated(fn (string $operation) => $operation === 'create')
                     ->rules(fn (string $operation) =>
                         [
-                            $operation === 'create' ? 'required, confirmed' : 'nullable',
+                            $operation === 'create' ? 'required' : 'nullable',
                             'min:8',
                             'confirmed'
                         ]),
@@ -39,7 +39,7 @@ class UserForm
                     ->dehydrated(false)
                     ->rules(fn (string $operation) =>
                     [
-                        $operation === 'create' ? 'required, confirmed' : 'nullable',
+                        $operation === 'create' ? ['required, confirmed'] : 'nullable',
                         'min:8',
                     ]),
                 CheckboxList::make('roles')

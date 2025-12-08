@@ -36,7 +36,7 @@ class SpeakersTable
                 //
             ])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()->slideOver(),
                 DeleteAction::make(),
                 ViewAction::make(),
             ])
